@@ -7,6 +7,8 @@ describe Merchant do
   describe "relationships" do
     it { should have_many :invoices }
     it { should have_many :items }
+    it { should have_many :reductions }
+    it { should have_many(:bulk_discounts).through(:reductions) }
     it { should have_many(:customers).through(:invoices) }
     it { should have_many(:transactions).through(:invoices) }
     it { should have_many(:invoice_items).through(:items) }

@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_025630) do
+ActiveRecord::Schema.define(version: 2021_01_14_233835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bulk_discounts", force: :cascade do |t|
+    t.string "percentage_discount"
+    t.integer "quantity_threshold"
+    t.bigint "merchant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["merchant_id"], name: "index_bulk_discounts_on_merchant_id"
+  end
 
   create_table "customers", force: :cascade do |t|
     t.string "first_name"
@@ -66,6 +75,15 @@ ActiveRecord::Schema.define(version: 2021_01_12_025630) do
     t.integer "status", default: 1
   end
 
+  create_table "reductions", force: :cascade do |t|
+    t.bigint "merchant_id"
+    t.bigint "bulk_discount_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bulk_discount_id"], name: "index_reductions_on_bulk_discount_id"
+    t.index ["merchant_id"], name: "index_reductions_on_merchant_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.bigint "credit_card_number"
     t.bigint "credit_card_expiration_date"
@@ -76,10 +94,13 @@ ActiveRecord::Schema.define(version: 2021_01_12_025630) do
     t.index ["invoice_id"], name: "index_transactions_on_invoice_id"
   end
 
+  add_foreign_key "bulk_discounts", "merchants"
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoice_items", "items"
   add_foreign_key "invoices", "customers"
   add_foreign_key "invoices", "merchants"
   add_foreign_key "items", "merchants"
+  add_foreign_key "reductions", "bulk_discounts"
+  add_foreign_key "reductions", "merchants"
   add_foreign_key "transactions", "invoices"
 end
