@@ -14,5 +14,16 @@ RSpec.describe "New Bulk Discount Page" do
       expect(page).to have_field(:quantity_threshold)
       expect(page).to have_field(:percentage_discount)
     end
+
+    it "creates a new Bulk Discount" do
+      fill_in "quantity_threshold", with: 15
+      fill_in "percentage_discount", with: "20"
+      
+      click_on "Save"
+      expect(current_path).to eq("/merchant/#{@merchant1.id}/bulk_discounts")
+      
+      expect(page).to have_content(15)
+      expect(page).to have_content("20%")
+    end
   end
 end
