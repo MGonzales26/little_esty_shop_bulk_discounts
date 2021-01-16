@@ -1,0 +1,7 @@
+<h1> My Discounts </h1>
+
+<% @merchant.bulk_discounts.each do |discount| %>
+  <h4> When your customer buys <%= discount.quantity_threshold%> of the same item, they will recieve a <%= discount.percentage_discount%> discount. </h4>
+<% end %>
+
+<h2> <%= link_to "Create New Discount", new_merchant_bulk_discount_path(@merchant.id) %> </h2>
