@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   before_action :find_merchant, only: [:new, :create, :index]
 
   def index
+    require 'pry'; binding.pry
     @enabled_items = @merchant.items.where(status: 1)
     @disabled_items = @merchant.items.where(status: 0)
   end
