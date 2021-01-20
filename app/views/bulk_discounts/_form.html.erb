@@ -1,0 +1,7 @@
+<%= form_with model: @bulk_discount, method: method, url: url, class: 'bulk_discount_form', local: true do |f| %>  
+    <%= f.label :quantity_threshold, 'Number of items to trigger discount:' %><br>
+    <%=  f.text_field :quantity_threshold, :value => @quantity  %> <br>
+    <%= f.label :percentage_discount, 'Discount percentage:' %><br>
+    <%=  f.text_field :percentage_discount, :value => @percentage %><br>
+    <%= f.submit %>
+  <% end %>

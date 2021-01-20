@@ -1,0 +1,7 @@
+<h1> My <%= @bulk_discount.percentage_discount%> for <%= @bulk_discount.quantity_threshold %> Discount </h1>
+
+<section>
+  <p> When your customer buys <%= @bulk_discount.quantity_threshold %> items, they will recieve a <%= @bulk_discount.percentage_discount %> discount. 
+  <%= link_to "Edit", edit_merchant_bulk_discount_path(@bulk_discount.merchant, @bulk_discount) %>
+  </p>
+</section>
