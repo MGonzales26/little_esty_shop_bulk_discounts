@@ -10,7 +10,7 @@ class Merchant < ApplicationRecord
   enum status: [:enabled, :disabled]
 
   def favorite_customers
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
     transactions
     .joins(invoice: :customer)
     .where('result = ?', 1)
@@ -20,19 +20,19 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
-  # def ordered_items_to_ship
-  #   item_ids = InvoiceItem.where("status = 0 OR status = 1").order(:created_at).pluck(:item_id)
-  #   item_ids.map do |id|
-  #     Item.find(id)
-  #   end
-  # end
-
-  def ordered_items_to_ship  
-    items.joins(:invoice_items)
-         .select('items.*')
-         .where("invoice_items.status = 0 OR invoice_items.status = 1")
-         .order(:created_at)
+  def ordered_items_to_ship
+    item_ids = InvoiceItem.where("status = 0 OR status = 1").order(:created_at).pluck(:item_id)
+    item_ids.map do |id|
+      Item.find(id)
+    end
   end
+
+  # def ordered_items_to_ship  
+  #   items.joins(:invoice_items)
+  #        .select('items.*')
+  #        .where("invoice_items.status = 0 OR invoice_items.status = 1")
+  #        .order(:created_at)
+  # end
 
   def top_5_items
      items
