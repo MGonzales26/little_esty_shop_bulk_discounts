@@ -93,7 +93,18 @@ RSpec.describe 'invoices show' do
       click_button "Update Invoice"
       expect(page).to have_content("cancelled")
       expect(page).to_not have_content("in progress")
-     end
+    end
+  end
+  
+  it "shows the total revenue includes the bulk discounts" do
+    @merchant1 = Merchant.create!(name: 'Hair Care')
+    @discount1 = @merchant1.bulk_discounts.create!(percentage_discount: '20%', quantity_threshold: 15)
+    
+    # @discount = @merchant1.bulk_discounts.create!(percentage_discount: "20%", quantity_threshold: 10)
+    # require 'pry'; binding.pry
+    visit merchant_invoice_path(@merchant1, @invoice_1, @merchant1.bulk_discounts)
+    # save_and_open_page
+    
   end
 
 end

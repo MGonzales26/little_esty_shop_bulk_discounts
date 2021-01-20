@@ -14,4 +14,10 @@ class Invoice < ApplicationRecord
   def total_revenue
     invoice_items.sum("unit_price * quantity")
   end
+  
+  def total_revenue_with_discounts
+    # require 'pry'; binding.pry
+    # items.joins(:merchant, :bulk_discounts)
+        #  .order(quantity: ) 
+  end
 end

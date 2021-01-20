@@ -10,6 +10,7 @@ class Merchant < ApplicationRecord
   enum status: [:enabled, :disabled]
 
   def favorite_customers
+    require 'pry'; binding.pry
     transactions
     .joins(invoice: :customer)
     .where('result = ?', 1)
